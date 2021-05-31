@@ -29,9 +29,9 @@ class TrafficPolice(models.Model):
 class Report(models.Model):
     """Model definition for Report."""
     description=models.TextField()
-    records=models.OneToOneField(Records,on_delete=models.CASCADE)
+    records=models.OneToOneField(Records,on_delete=models.CASCADE,related_name="report")
     traffic_police=models.OneToOneField(TrafficPolice,on_delete=models.CASCADE)
-    status=models.BooleanField("is_approved",default=False)
+    status=models.BooleanField("is_reported",default=False)
     created_at=models.DateTimeField(auto_now_add=True)
 
 
@@ -51,3 +51,20 @@ class Report(models.Model):
     def __str__(self):
         """Unicode representation of Report."""
         pass
+class SystemAdmin(models.Model):
+    """Model definition for SystemAdmin."""
+    user=models.OneToOneField(User, on_delete=models.CASCADE,related_name="system_admin")
+    phone_number=models.CharField(max_length=50)
+    status=models.BooleanField("Active",default=True)
+
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for SystemAdmin."""
+
+        verbose_name = 'SystemAdmin'
+        verbose_name_plural = 'SystemAdmins'
+
+    def __str__(self):
+        """Unicode representation of SystemAdmin."""
+        return str(self.user.username)

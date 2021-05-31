@@ -23,11 +23,11 @@ class Vehicle(models.Model):
 
     def __str__(self):
         """Unicode representation of Vehicle."""
-        pass
+        return str(self.vehicle_plate)
 
 class Records(models.Model):
     """Model definition for Records."""
-    vehicle=models.ForeignKey(Vehicle,on_delete=models.CASCADE)
+    vehicle=models.ForeignKey(Vehicle,on_delete=models.CASCADE,related_name="records")
     location=models.PointField()
     address=models.CharField(max_length=50)
     vehicle_speed=models.IntegerField(null=True)
@@ -42,7 +42,7 @@ class Records(models.Model):
         """Meta definition for Records."""
 
         verbose_name = 'Records'
-        verbose_name_plural = 'Recordss'
+        verbose_name_plural = 'Records'
 
     def __str__(self):
         """Unicode representation of Records."""
