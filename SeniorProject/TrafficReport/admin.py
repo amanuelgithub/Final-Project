@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TrafficPolice,Report,SystemAdmin
+from .models import TrafficPolice,Report,SystemAdmin,Notification,MobileNotification,MobileDevices
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -16,7 +16,7 @@ class UserCreationFormExtended(UserCreationForm):
 
 class UserAdmin(BaseUserAdmin):
     ordering=['username']
-    list_display=['username','first_name']
+    list_display=['username','first_name','email']
     add_form=UserCreationFormExtended
 
     fieldsets=(
@@ -63,3 +63,6 @@ admin.site.register(User,UserAdmin)
 admin.site.register(TrafficPolice)
 admin.site.register(Report,ReportAdmin)
 admin.site.register(SystemAdmin)
+admin.site.register(Notification)
+admin.site.register(MobileNotification)
+admin.site.register(MobileDevices)

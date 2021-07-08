@@ -1,6 +1,9 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from RecordReport.models import Records
+from django_extensions.db.models import TimeStampedModel
+
 
 # Create your models here.
 
@@ -68,3 +71,28 @@ class SystemAdmin(models.Model):
     def __str__(self):
         """Unicode representation of SystemAdmin."""
         return str(self.user.username)
+class Notification(models.Model):
+    recipient=models.ForeignKey(User,on_delete=models.CASCADE)
+    records=models.OneToOneField(Records,on_delete=models.CASCADE)
+    content=models.TextField(null=True)
+
+
+    def __str__(self):
+        return str(self.records.vehicle)
+
+
+
+class MobileNotification(TimeStampedModel):
+    recipient = models.ForeignKey(User, related_name='user_device_notifications', on_delete=models.CASCADE)
+    title = models.CharField(max_length=512, null=True, blank=True)
+    message = models.TextField()
+    status = models.CharField(max_length=10, default='unread')
+
+
+
+class MobileDevices(models.Model):
+    participants=models.OneToOneField(User,related_name='device',on_delete=models.CASCADE)
+    token=models.TextField()
+
+
+
