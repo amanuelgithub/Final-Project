@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'rest_auth',
     'RecordReport',
     'TrafficReport',
+    'pages',
+    'authentication'
+    
 ]
 
 MIDDLEWARE = [
@@ -60,7 +63,7 @@ ROOT_URLCONF = 'SeniorProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,8 +131,35 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS=[os.path.join(BASE_DIR,'static'),]
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+
+STATICFILES_FINDERS = [
+"django.contrib.staticfiles.finders.FileSystemFinder",
+"django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_AUTH_SERIALIZERS={
+    'TOKEN_SERIALIZER':'RecordReport.api.serializers.CustomTokenSerializer'
+}
+
+FIREBASE_API_KEY={
+    "SERVER_KEY":"AAAAPrW_CP8:APA91bEElY_DX6m7Kuwpo807REpKV67F9VgGCP_YLf2MZiAj4IBWqyowu_krDS42l50uq0b7vRTF-wtXjj7DBVk-orvVD_05szRH-24Uqh8k_eUdRNmu5mpcbBm6QzSgyHbotaGxt-eX"
+}
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'rest_framework.renderers.JSONRenderer',
+#     ),
+#     'DEFAULT_PARSER_CLASSES': (
+#         'rest_framework.parsers.JSONParser',
+#     )
+# }
+
+
+LOGIN_REDIRECT_URL='home'
+

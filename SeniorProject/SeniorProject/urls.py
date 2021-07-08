@@ -23,5 +23,11 @@ urlpatterns = [
     path('api-auth/',include('rest_framework.urls')),
     path('api/rest-auth/',include("rest_auth.urls")),
     path('TrafficReport/',include("TrafficReport.api.urls")),
-    path('RecordReport/',include("RecordReport.api.urls"))
+    path('RecordReport/',include("RecordReport.api.urls")),
+    # path('',include("pages.urls")),
+    # path('',include('django.contrib.auth.urls')),
+
+    path("", include("authentication.urls")), # Auth routes - login / register
+    path("", include("pages.urls"))
+    
 ]
