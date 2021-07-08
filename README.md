@@ -1,0 +1,1 @@
+Amir, write the progress you made on the project along with guides on how to setup and run it on a local machine. ;)
